@@ -13,8 +13,11 @@ public class Player : MonoBehaviour
 
     void OnDestroy()
     {
-        GameOverPanel.GetComponent<CanvasGroup>().alpha = 1;
-        GameOverPanel.GetComponent<CanvasGroup>().interactable = true;
+        if(GameOverPanel != null)
+        {
+            GameOverPanel.GetComponent<CanvasGroup>().alpha = 1;
+            GameOverPanel.GetComponent<CanvasGroup>().interactable = true;
+        }
     }
 
     // Start is called before the first frame update
@@ -36,7 +39,7 @@ public class Player : MonoBehaviour
 
         MoveMent = new Vector2(Speed.x * x, Speed.y * y);
 
-        bool shoot = Input.GetButtonDown("Fire1");
+        bool shoot = Input.GetButton("Fire1");
 
         if (shoot)
         {

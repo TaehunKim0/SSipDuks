@@ -24,11 +24,12 @@ public class Enemy : MonoBehaviour
     {
         hasSpawn = false;
         col.enabled = false;
-        moveS.enabled = true;
-        for (int i = 0; i < myWeapons.Length; i++)
-        {
-            myWeapons[i].enabled = false;
-        }
+
+        if(myWeapons != null)
+           for (int i = 0; i < myWeapons.Length; i++)
+           {
+                myWeapons[i].enabled = false;
+           }
     }
 
     private void Spawn()
@@ -63,10 +64,10 @@ public class Enemy : MonoBehaviour
 
             if (render.IsVisibleFrom(Camera.main) == false)
             {
-               // Destroy(gameObject); // 화면밖으로 나면 삭제
+                //화면 밖에 나가면
+               // string itemName = gameObject.GetComponent<Health>().itemName;
+                //ObjectPool.Instance.PushToPool(itemName, gameObject);
             }
         }
-
-
     }
 }

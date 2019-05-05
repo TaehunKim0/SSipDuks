@@ -161,5 +161,5 @@ MonoBehaviour:
   isEnemyShot: 0
   poolItemName: Bullet
   moveSpeed: 10
-  lifeTime: 10
+  lifeTime: 5
   _elapsedTime: 0

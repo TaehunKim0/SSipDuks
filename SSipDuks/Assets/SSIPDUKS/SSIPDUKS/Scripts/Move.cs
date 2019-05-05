@@ -7,7 +7,7 @@ public class Move : MonoBehaviour
     public Vector2 Speed = new Vector2(5, 5);
     public Vector2 Direction = new Vector2(-1, 0);
 
-    public Vector2 MoveMent;
+    private Vector2 MoveMent;
     private Rigidbody2D myRigid;
 
 

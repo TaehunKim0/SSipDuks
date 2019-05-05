@@ -7,8 +7,8 @@ public class ScoreSystem : MonoBehaviour
     public GameObject[] m_number;
     public Transform[] m_field;
     GameObject[] m_activeObj;
-    int score = 0;
-         
+    public static int score = 0;
+        
     // Start is called before the first frame update
     void Start()
     {
@@ -25,10 +25,11 @@ public class ScoreSystem : MonoBehaviour
         }
 
     }
+
     public void inc()
     {
         Debug.Log("호출");
-
+        
         Clear();
         if (score < 999999)
         { 
@@ -68,8 +69,9 @@ public class ScoreSystem : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        Clear();
+        setValue(score);
     }
 }

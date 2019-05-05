@@ -48,6 +48,7 @@ public class Weapon : MonoBehaviour
                 bulletName = "EBullet";
 
             }
+
             GameObject bullet = ObjectPool.Instance.PopFromPool(bulletName);
             bullet.transform.position = transform.position;
             bullet.SetActive(true);

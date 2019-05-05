@@ -12,11 +12,9 @@ public class Shot : MonoBehaviour
     public float lifeTime = 3f;
     public float _elapsedTime = 0f;
 
-
     // Start is called before the first frame update
     void Start()
     {
-        
         //Destroy(gameObject, 20);
     }
 
@@ -30,7 +28,7 @@ public class Shot : MonoBehaviour
         }
     }
 
-    void PushPool()
+    public void PushPool()
     {
         ObjectPool.Instance.PushToPool(poolItemName, gameObject);
     }
