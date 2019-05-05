@@ -8,16 +8,12 @@ public class GameManager : MonoBehaviour
     public Player player;
     public GameObject StartLogo;
     float elapsedTime = 0f;
-    int DiagolonCount = 0;
 
-    //Diagolon
-    public bool check;
-    Vector3 pos;
-
+    private bool check;
 
     //enum
     PROGRESS progress = PROGRESS.START;
-    EnemyPattern pattern = EnemyPattern.Diagolon;
+    EnemyPattern pattern = EnemyPattern.Snake;
 
     enum PROGRESS
     {
@@ -25,7 +21,6 @@ public class GameManager : MonoBehaviour
         WAVE,
         BOSS
     }
-
     enum EnemyPattern
     {
         NONE,
@@ -34,8 +29,7 @@ public class GameManager : MonoBehaviour
         Smart,
     }
 
-    
-
+    //Function
     private void Start()
     {
         check = false;
@@ -57,71 +51,55 @@ public class GameManager : MonoBehaviour
 
                 break;
 
-            case PROGRESS.WAVE:
+            case PROGRESS.WAVE:  //위 : 9
+                                 //아래 : -11
+                                 //X : 24
                 switch (pattern)
                 {
-                    //위 : 9
-                    //아래 : -11
-                    //X : 24
-
                     case EnemyPattern.Diagolon:
                         
-                        DiagolonCount++;
-
-                        if(check == false)
-                        {
-                            Debug.Log("적 소환");
-                            float randomY = Random.Range(-11f, 8f);
-                            float X = 24f;
-
-                            pos = new Vector3(X, randomY, 0f); 
-                            check = true;
-
-                            Vector3 offset = new Vector3(4f, 0f, 0f);
-                            Debug.Log(pos);
-
-                            StartCoroutine(SpawnDiagolon(pos, offset * DiagolonCount));
-                        }
-
-                        if (DiagolonCount >= 4)
-                        {
-                            pattern = EnemyPattern.NONE;
-                            DiagolonCount = 0;
-                            check = false;
-                        }
-
                         break;
 
                     case EnemyPattern.Snake:
                         //뱀 랜덤위치에 소환
+                        if (elapsedTime >= 4)
+                        {
+                            if (check == false)
+                            {
+                                //랜덤 Y값 생성
+                                float randomY = Random.Range(-11f, 8f);
+                                float X = 24f;
+
+                                //랜덤 Y값 저장
+                                Vector3 pos = new Vector3(X, randomY, 0f);
+                                check = true;
+
+                                //뱀 오프셋
+                                Vector3 offset = new Vector3(4f, 0f, 0f);
+
+                                //뱀 생성
+                                ObjectPool.Instance.PopFromPool("Snake").GetComponent<Snake>().Init(pos, offset, true);
+                                pattern = EnemyPattern.NONE;
+                                check = false;
+                            }
+                            
+                        }
                         break;
 
                     case EnemyPattern.Smart:
                         //똑똑한 녀석 랜덤 위치에 소환
                         break;
                 }
-               // elapsedTime = 0f;
+             
                 break;
 
             case PROGRESS.BOSS:
 
                 break;
+
         }
     }
 
-    IEnumerator SpawnDiagolon(Vector3 spos, Vector3 offset)
-    {
-        while (DiagolonCount <= 4)
-        {
-            yield return new WaitForSeconds(0.4f);
-
-            GameObject temp = ObjectPool.Instance.PopFromPool("Diagolon");
-            temp.transform.position = spos + offset;
-            temp.SetActive(true);
-
-            DiagolonCount++;
-        }
-    }
 
 
 }

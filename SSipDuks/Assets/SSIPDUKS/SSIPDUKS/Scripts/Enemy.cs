@@ -65,8 +65,8 @@ public class Enemy : MonoBehaviour
             if (render.IsVisibleFrom(Camera.main) == false)
             {
                 //화면 밖에 나가면
-               // string itemName = gameObject.GetComponent<Health>().itemName;
-                //ObjectPool.Instance.PushToPool(itemName, gameObject);
+                string itemName = gameObject.GetComponent<Health>().itemName;
+                ObjectPool.Instance.PushToPool(itemName, gameObject);
             }
         }
     }

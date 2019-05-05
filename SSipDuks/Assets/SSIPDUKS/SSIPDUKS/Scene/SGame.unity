@@ -951,7 +951,8 @@ MonoBehaviour:
     poolCount: 10
     poolList: []
   - poolItemName: Snake
-    prefab: {fileID: 466314418310849002, guid: 5ddbbf481c2fd8443a8304f6846004f3, type: 3}
+    prefab: {fileID: 3134674625192482591, guid: 5ddbbf481c2fd8443a8304f6846004f3,
+      type: 3}
     poolCount: 10
     poolList: []
   - poolItemName: BulletExplode
