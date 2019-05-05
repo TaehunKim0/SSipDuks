@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameMenu : MonoBehaviour
 {
@@ -21,6 +22,35 @@ public class GameMenu : MonoBehaviour
     public void GotoTitle()
     {
         SceneManager.LoadScene("Menu");
+    }
+
+    public void EndGame()
+    {
+        Application.Quit();
+    }
+
+    public void DefaultPlayButton()
+    {
+        GameObject temp = GameObject.Find("Button");
+        temp.gameObject.GetComponent<Image>().sprite = Resources.Load("play_0", typeof(Sprite)) as Sprite;
+    }
+
+    public void ChangeHoverPlayButton()
+    {
+        GameObject temp = GameObject.Find("Button");
+        temp.gameObject.GetComponent<Image>().sprite = Resources.Load("play_1", typeof(Sprite)) as Sprite;
+    }
+
+    public void DefaultEndButton()
+    {
+        GameObject temp = GameObject.Find("Button2");
+        temp.gameObject.GetComponent<Image>().sprite = Resources.Load("exit_0", typeof(Sprite)) as Sprite;
+    }
+
+    public void ChangeHoverEndButton()
+    {
+        GameObject temp = GameObject.Find("Button2");
+        temp.gameObject.GetComponent<Image>().sprite = Resources.Load("exit_1", typeof(Sprite)) as Sprite;
     }
 
     // Update is called once per frame

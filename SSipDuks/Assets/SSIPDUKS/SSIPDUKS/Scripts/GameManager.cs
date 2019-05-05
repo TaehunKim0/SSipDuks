@@ -57,7 +57,18 @@ public class GameManager : MonoBehaviour
                 switch (pattern)
                 {
                     case EnemyPattern.Diagolon:
-                        
+                        if(check == false)
+                        {
+                            float randomY = Random.Range(-7f, 8f);
+                            float X = 24f;
+
+                            //랜덤 Y값 저장
+
+                            Vector3 pos = new Vector3(X, randomY, 0f);
+                            ObjectPool.Instance.PopFromPool("Diagolon").gameObject.GetComponent<Diagolon>().Init(pos);
+
+                            check = true;
+                        }
                         break;
 
                     case EnemyPattern.Snake:
@@ -82,7 +93,6 @@ public class GameManager : MonoBehaviour
                                 pattern = EnemyPattern.NONE;
                                 check = false;
                             }
-                            
                         }
                         break;
 

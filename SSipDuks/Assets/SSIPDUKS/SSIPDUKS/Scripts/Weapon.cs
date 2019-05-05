@@ -46,12 +46,26 @@ public class Weapon : MonoBehaviour
             else
             {
                 bulletName = "EBullet";
-
             }
 
-            GameObject bullet = ObjectPool.Instance.PopFromPool(bulletName);
-            bullet.transform.position = transform.position;
-            bullet.SetActive(true);
+            GameObject bullet = null;
+            if (gameObject.GetComponent<Health>().isEnemy == false)
+            {
+                bullet = ObjectPool.Instance.PopFromPool(bulletName);
+
+                bullet.gameObject.GetComponent<Shot>().SetShotToPlayer(false);
+                bullet.gameObject.transform.position = transform.position;
+                bullet.gameObject.SetActive(true);
+            }
+            else
+            {
+                bullet = ObjectPool.Instance.PopFromPool(bulletName);
+                
+                bullet.gameObject.transform.position = transform.position;
+                bullet.gameObject.SetActive(true);
+                bullet.gameObject.GetComponent<Shot>().SetShotToPlayer(true);
+            }
+           
 
             //Transform shotTransform = Instantiate(shotPrefab) as Transform;
             //shotTransform.position = transform.position;

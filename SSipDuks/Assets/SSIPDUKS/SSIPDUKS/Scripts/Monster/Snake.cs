@@ -42,7 +42,7 @@ public class Snake : MonoBehaviour
     void SnakeMove()
     {
         elapsedTime += Time.deltaTime * 3f;
-        deltaY = Mathf.Sin(elapsedTime) * 0.1f;
+        deltaY = Mathf.Sin(-elapsedTime) * 0.1f;
 
         Vector2 v = transform.position;
         v.y = deltaY + transform.position.y;

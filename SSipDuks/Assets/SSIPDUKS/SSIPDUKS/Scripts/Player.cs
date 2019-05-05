@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public Transform GameOverPanel;
 
 
+    private Animator m_Animator;
     public Vector2 Speed = new Vector2(30, 30);
     public Vector2 MoveMent;
     private Rigidbody2D myRigid;
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         myRigid = GetComponent<Rigidbody2D>();
+        m_Animator = gameObject.GetComponent<Animator>();
     }
 
     ~Player()
@@ -34,8 +36,22 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
+
+        
+
+        if(Input.GetKey(KeyCode.LeftArrow))
+        {
+            m_Animator.SetInteger("Direction", -1);
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            m_Animator.SetInteger("Direction", 1);
+        }
+        else
+            m_Animator.SetInteger("Direction", 0);
 
         MoveMent = new Vector2(Speed.x * x, Speed.y * y);
 
