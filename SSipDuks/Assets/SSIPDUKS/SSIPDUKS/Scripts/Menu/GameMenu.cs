@@ -21,7 +21,7 @@ public class GameMenu : MonoBehaviour
     }
     public void GotoTitle()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("SMenu");
     }
 
     public void EndGame()

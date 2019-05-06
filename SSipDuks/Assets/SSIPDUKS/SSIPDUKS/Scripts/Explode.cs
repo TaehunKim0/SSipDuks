@@ -6,6 +6,7 @@ public class Explode : MonoBehaviour
 {
     public string itemName = string.Empty;
     private float elapsedTime = 0f;
+    public float DestroyTime = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +18,14 @@ public class Explode : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
 
-        if(elapsedTime >= 0.6)
+        if(elapsedTime >= DestroyTime)
         {
-            ObjectPool.Instance.PushToPool(itemName, gameObject);
+            if (itemName != string.Empty)
+                ObjectPool.Instance.PushToPool(itemName, gameObject);
+            else
+                Destroy(gameObject);
+
+            elapsedTime = 0;
         }
 
     }

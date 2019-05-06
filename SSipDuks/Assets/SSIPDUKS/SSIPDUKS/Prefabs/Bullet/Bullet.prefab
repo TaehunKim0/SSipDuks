@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5759367853415369876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.917, y: -0.7087498, z: 0.39609376}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 55af09315385f184abef3f9e1c93fbc0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 56abc3c0be9d77c44b04554e0b9152f5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +100,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.23, y: 0.78}
+    oldSize: {x: 2.56, y: 1.28}
     newSize: {x: 1.23, y: 0.78}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -142,9 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353ac7f8c44bf9c4289ec2f4dd6a0f4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: {x: 70, y: 15}
-  Direction: {x: 1, y: 0}
-  MoveMent: {x: 0, y: 0}
+  Speed: {x: 100, y: 100}
 --- !u!114 &7981131554167854069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +158,7 @@ MonoBehaviour:
   Damage: 1
   isEnemyShot: 0
   poolItemName: Bullet
-  moveSpeed: 10
+  moveSpeed: 200
   lifeTime: 5
   _elapsedTime: 0
+  UseAngle: 0

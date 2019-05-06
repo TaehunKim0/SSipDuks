@@ -5,86 +5,114 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     public Transform shotPrefab;
-    public float ShootingRate = 0.25f;
+    public int ShootingRate;
 
-    private float ShootCoolDown;
+    private int CoolTime = 100;
     private string bulletName;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        ShootCoolDown = 0;
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if(ShootCoolDown > 0 )
-        {
-            ShootCoolDown -= Time.deltaTime;
-        }
+        CoolTime -= 1;
+        if (CoolTime < 0)
+            CoolTime = 0;
     }
 
-    public bool CanAttack
+    public bool CanAttack()
     {
-        get
+        if (CoolTime <= 0)
+            return true;
+
+        return false;
+    }
+
+    public void Shotgun()
+    {
+        Vector3 vec = new Vector3(5f, -0.5f, 0f);
+        bulletName = "Bullet";
+
+        //// 추적 총알 취소
+        for (float i = 0.5f; i >= -0.5f; i -= 0.1f)
         {
-            return ShootCoolDown <= 0f;
+            //총알 생성
+            GameObject bullet = ObjectPool.Instance.PopFromPool(bulletName);
+
+            bullet.gameObject.GetComponent<Shot>().ShotAngle(i);
+            bullet.gameObject.transform.position = transform.position + vec;
+            bullet.gameObject.SetActive(true);
         }
+
+        ////총알 생성
+        //GameObject bullet = ObjectPool.Instance.PopFromPool(bulletName);
+
+        //bullet.gameObject.GetComponent<Shot>().ShotAngle(0.5f);
+        //bullet.gameObject.transform.position = transform.position + vec;
+        //bullet.gameObject.SetActive(true);
+
+
+        //GameObject bullet2 = ObjectPool.Instance.PopFromPool(bulletName);
+
+        //bullet2.gameObject.GetComponent<Shot>().ShotAngle(0);
+        //bullet2.gameObject.transform.position = transform.position + vec;
+        //bullet2.gameObject.SetActive(true);
+
+
+        //GameObject bulletd = ObjectPool.Instance.PopFromPool(bulletName);
+
+        //bulletd.gameObject.GetComponent<Shot>().ShotAngle(-0.5f);
+        //bulletd.gameObject.transform.position = transform.position + vec;
+        //bulletd.gameObject.SetActive(true);
+
+
+        //총알 발사 이펙트
+        GameObject temp = ObjectPool.Instance.PopFromPool("BulletShot");
+        temp.SetActive(true);
+        temp.transform.position = gameObject.transform.position + vec;
     }
 
     public void Attack(bool isEnemy)
     {
-        if(CanAttack)
+        if (CanAttack())
         {
-            ShootCoolDown = ShootingRate;
-
-            if(gameObject.GetComponent<Health>().isEnemy == false)
-            {
-                bulletName = "Bullet";             
-            }
+            if (gameObject.GetComponent<Health>().isEnemy == false)
+                bulletName = "Bullet";
             else
-            {
                 bulletName = "EBullet";
-            }
 
-            GameObject bullet = null;
+            //적이 아니면
             if (gameObject.GetComponent<Health>().isEnemy == false)
             {
-                bullet = ObjectPool.Instance.PopFromPool(bulletName);
+                Vector3 vec = new Vector3(5f, -0.5f, 0f);
 
+                //총알 생성
+                GameObject bullet = ObjectPool.Instance.PopFromPool(bulletName);
+
+                //추적 총알 취소
                 bullet.gameObject.GetComponent<Shot>().SetShotToPlayer(false);
-                bullet.gameObject.transform.position = transform.position;
+                bullet.gameObject.transform.position = transform.position + vec;
                 bullet.gameObject.SetActive(true);
+                
+
+                //총알 발사 이펙트
+                GameObject temp = ObjectPool.Instance.PopFromPool("BulletShot");
+                temp.SetActive(true);
+                temp.transform.position = gameObject.transform.position + vec;
+
+                CoolTime = ShootingRate;
             }
+
+            //적이면
             else
             {
-                bullet = ObjectPool.Instance.PopFromPool(bulletName);
-                
+                //적 총알 생성
+                GameObject bullet = ObjectPool.Instance.PopFromPool(bulletName);
+
                 bullet.gameObject.transform.position = transform.position;
                 bullet.gameObject.SetActive(true);
                 bullet.gameObject.GetComponent<Shot>().SetShotToPlayer(true);
+
+                CoolTime = ShootingRate;
             }
-           
-
-            //Transform shotTransform = Instantiate(shotPrefab) as Transform;
-            //shotTransform.position = transform.position;
-
-            //Shot tempShot = shotTransform.gameObject.GetComponent<Shot>();
-            //if (tempShot != null)
-            //{   
-            //    tempShot.isEnemyShot = isEnemy;
-            //}
-
-            //Move tempMove = shotTransform.gameObject.GetComponent<Move>();
-            //if (tempMove != null)
-            //{
-            //    Move move = gameObject.GetComponent<Move>();
-            //    if (move != null)
-            //        tempMove.Direction.x = move.Direction.x;
-
-            //}
         }
     }
-    
 }

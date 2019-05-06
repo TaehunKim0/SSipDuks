@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2099050616c57a34eaf62ee7a277ba23, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0a985593a2383e543a7dee588fb653fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,7 +106,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.88, y: 4.14}
+    oldSize: {x: 5.12, y: 5.12}
     newSize: {x: 5.88, y: 4.14}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotPrefab: {fileID: 4462729382769770194, guid: 0d23376a54912b6479d2185242a54596,
     type: 3}
-  ShootingRate: 0.5
+  ShootingRate: 50
 --- !u!114 &1280232273000045163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,12 +179,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a25ba04195cbd24aa98317007b2700e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 1
+  hp: 2
   isEnemy: 1
   itemName: Diagolon
   MemoryDelete: 0
-  expolodePrefab: {fileID: 153903959254048561, guid: eecd23fe1f326174a937d1bf7ede65d7,
+  expolodePrefab: {fileID: 539686421972905257, guid: eecd23fe1f326174a937d1bf7ede65d7,
     type: 3}
+  sound: {fileID: 0}
 --- !u!114 &1255412197848498177
 MonoBehaviour:
   m_ObjectHideFlags: 0

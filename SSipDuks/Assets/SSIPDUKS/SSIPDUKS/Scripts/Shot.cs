@@ -11,8 +11,15 @@ public class Shot : MonoBehaviour
     public float moveSpeed = 10f;
     public float lifeTime = 3f;
     public float _elapsedTime = 0f;
+    private Vector2 LastDir;
 
-    private bool ShotToPlayer = false;
+    public bool UseAngle = false;
+
+    public void ShotAngle(float degree)
+    {
+        Move temp = gameObject.GetComponent<Move>();
+        temp.SetAngle(degree);
+    }
 
     public void SetShotToPlayer(bool value)
     {
@@ -20,10 +27,19 @@ public class Shot : MonoBehaviour
         {
             GameObject player = GameObject.Find("Player");
 
-            Vector2 v = player.transform.position - gameObject.transform.position;
-            Vector2 dir = v / v.magnitude;
+            if(player != null)
+            {
+                Vector3 v = player.transform.position - gameObject.transform.position;
+                v = Vector3.Normalize(v);
+                v = new Vector3(-1f * moveSpeed, 0f, 0f);
 
-            gameObject.GetComponent<Move>().SetDirection(dir);
+                gameObject.GetComponentInParent<Move>().SetDirection(v);
+                LastDir = v;
+            }
+            else
+            {
+                gameObject.GetComponentInParent<Move>().SetDirection(LastDir);
+            }
         }
     }
 

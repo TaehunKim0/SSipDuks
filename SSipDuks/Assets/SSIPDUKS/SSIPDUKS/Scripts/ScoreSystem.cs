@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreSystem : MonoBehaviour
-{
+{   
     public GameObject[] m_number;
     public Transform[] m_field;
     GameObject[] m_activeObj;
@@ -28,7 +28,7 @@ public class ScoreSystem : MonoBehaviour
 
     public void inc()
     {
-        Debug.Log("호출");
+        
         
         Clear();
         if (score < 999999)

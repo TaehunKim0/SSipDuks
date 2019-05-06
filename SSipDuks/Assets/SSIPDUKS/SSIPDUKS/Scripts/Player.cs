@@ -6,11 +6,34 @@ public class Player : MonoBehaviour
 {
     public Transform GameOverPanel;
 
-
     private Animator m_Animator;
     public Vector2 Speed = new Vector2(30, 30);
     public Vector2 MoveMent;
     private Rigidbody2D myRigid;
+
+    public GameObject LazerPrefab;
+    private GameObject Lazer;
+
+    public GameObject BombPrefab;
+
+    private AudioSource audio;
+    public AudioClip sound;
+
+
+    private int Mana = 0;
+
+    public void PlusMana(int ma)
+    {
+        Mana += ma;
+    }
+    public void MinusMana(int ma)
+    {
+        Mana -= ma;
+    }
+    public int GetMana()
+    {
+        return Mana;
+    }
 
     void OnDestroy()
     {
@@ -18,6 +41,9 @@ public class Player : MonoBehaviour
         {
             GameOverPanel.GetComponent<CanvasGroup>().alpha = 1;
             GameOverPanel.GetComponent<CanvasGroup>().interactable = true;
+            GameObject g = GameObject.Find("UI");
+            g.gameObject.GetComponent<CanvasGroup>().alpha = 0;
+                
         }
     }
 
@@ -26,6 +52,9 @@ public class Player : MonoBehaviour
     {
         myRigid = GetComponent<Rigidbody2D>();
         m_Animator = gameObject.GetComponent<Animator>();
+        audio = gameObject.AddComponent<AudioSource>();
+        audio.clip = sound;
+        audio.loop = false;
     }
 
     ~Player()
@@ -36,11 +65,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
-
-        
 
         if(Input.GetKey(KeyCode.LeftArrow))
         {
@@ -64,6 +90,53 @@ public class Player : MonoBehaviour
             {
                 tempWeapon.Attack(false);
             }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if(GetMana() >= 300)
+            {
+                MinusMana(300);
+
+                Instantiate(BombPrefab);
+
+            }
+
+            if(GetMana() >= 200)
+            {
+                MinusMana(200);
+                Lazer = Instantiate(LazerPrefab);
+                audio.PlayOneShot(sound,1);
+            }
+
+            if (GetMana() >= 100)
+            {
+                Weapon tempWeapon = GetComponent<Weapon>();
+
+                if (tempWeapon != null)
+                {
+                    tempWeapon.Shotgun();
+                    MinusMana(100);
+
+                }
+
+            }
+
+            
+
+            if (Mana < 0)
+                Mana = 0;
+        }
+
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            PlusMana(100);
+        }
+
+        if (Lazer != null)
+        {
+            Vector3 vec = new Vector3(30f, -0.5f, 0f);
+            Lazer.gameObject.transform.position = gameObject.transform.position + vec;
         }
 
         float dist = (transform.position - Camera.main.transform.position).z;

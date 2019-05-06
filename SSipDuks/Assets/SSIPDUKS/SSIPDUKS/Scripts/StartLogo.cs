@@ -7,7 +7,7 @@ public class StartLogo : MonoBehaviour
     
     private void Start()
     {
-        Vector3 pos = new Vector3(34f, 0.4f, 0f);
+        Vector3 pos = new Vector3(34f, -3f, 0f);
         gameObject.transform.Translate(pos);
     }
     //5~-1
@@ -19,7 +19,7 @@ public class StartLogo : MonoBehaviour
 
         if (targetScreenPos.x < Screen.width || targetScreenPos.x > 0 || targetScreenPos.y < Screen.height || targetScreenPos.y > 0)
         {
-            if (pos.x <= 5f && pos.x >= -1f)
+            if (pos.x <= 6f && pos.x >= -1f)
             {
                 gameObject.transform.Translate(-5f * Time.deltaTime, 0f, 0f);
             }

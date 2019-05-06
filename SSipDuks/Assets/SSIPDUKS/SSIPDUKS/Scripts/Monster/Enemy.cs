@@ -9,11 +9,11 @@ public class Enemy : MonoBehaviour
     private Collider2D col;
     private Renderer render;
 
-    private Weapon[] myWeapons;
+    private Weapon myWeapons;
 
     private void Awake()
     {
-        myWeapons = GetComponentsInChildren<Weapon>();
+        myWeapons = gameObject.GetComponent<Weapon>();
         moveS = GetComponent<Move>();
         render = GetComponent<Renderer>();
         col = GetComponent<Collider2D>();
@@ -26,21 +26,15 @@ public class Enemy : MonoBehaviour
         col.enabled = false;
 
         if(myWeapons != null)
-           for (int i = 0; i < myWeapons.Length; i++)
-           {
-                myWeapons[i].enabled = false;
-           }
+          myWeapons.enabled = false;
     }
 
     private void Spawn()
     {
         hasSpawn = true;
+
         col.enabled = true;
-        moveS.enabled = true;
-        for (int i = 0; i < myWeapons.Length; i++)
-        {
-            myWeapons[i].enabled = true;
-        }
+        myWeapons.enabled = true;
     }
 
     void Update()
@@ -54,12 +48,9 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < myWeapons.Length; i++)
+            if (myWeapons != null && myWeapons.CanAttack())
             {
-                if (myWeapons[i] != null && myWeapons[i].CanAttack)
-                {
-                    myWeapons[i].Attack(true);
-                }
+                myWeapons.Attack(true);
             }
 
             if (render.IsVisibleFrom(Camera.main) == false)

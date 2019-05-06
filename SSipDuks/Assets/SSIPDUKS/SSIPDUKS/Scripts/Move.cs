@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    public Vector2 Speed = new Vector2(5, 5);
+    public Vector2 Speed = new Vector2(20, 20);
     private Vector2 Direction = new Vector2(1 , 0);
 
     private Vector2 MoveMent;
     private Rigidbody2D myRigid;
+    private bool UseAngle = false;
+    private float Angle = 0f;
+
+    public void SetAngle(float angle)
+    {
+        Angle = angle;
+        UseAngle = true;
+    }
 
     public void SetDirection(Vector2 dir)
     {
@@ -24,12 +32,28 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Direction);
-        MoveMent = new Vector2(Direction.x * 20f, Direction.y * 20f);
-    }
+        if(UseAngle)
+        {
+            //float width = m_pTarget.position.x - transform.position.x;
+           // float height = m_pTarget.position.y - transform.position.y;
 
-    private void FixedUpdate()
-    {
+            //float radian = Mathf.Atan2(height, width);
+
+            float angle = Angle * 180 / Mathf.PI;
+
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+
+            MoveMent = new Vector2(Mathf.Cos(Angle) * Speed.x, Mathf.Sin(Angle) * Speed.y);
+            
+        }
+
+        else
+        {
+            MoveMent = new Vector2(Direction.x * Speed.x, Direction.y * Speed.y);
+        }
+
+        
         myRigid.velocity = MoveMent;
+        
     }
 }

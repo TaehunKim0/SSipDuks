@@ -4,26 +4,38 @@ using UnityEngine;
 
 public class Diagolon : MonoBehaviour
 {
-    private float deltaX;
     private float deltaY;
     private float elapsedTime;
     private float time;
+    private bool Up;
 
     public void Init(Vector3 pos)
     {
         transform.position = pos;
         gameObject.SetActive(true);
-    }
+        elapsedTime = 0f;
+        deltaY = 0f;
+        time = 0f;
 
+        if (pos.y < 0.3)
+        {
+            Up = true;
+        }
+        else
+        {
+            Up = false;
+        }
+    }
+    
     void DiagolonMove()
     {
-        if(time >= 3)
+        if(time >= 1)
         {
-            if(deltaY <= -0.03)
-            {
-                elapsedTime += Time.deltaTime * 3f;
+            elapsedTime += 0.02f;
+            if(Up)
+                deltaY = Mathf.Sin(elapsedTime) * 0.1f;
+            else
                 deltaY = Mathf.Sin(-elapsedTime) * 0.1f;
-            }
 
             Vector2 v = transform.position;
             v.y = deltaY + transform.position.y;
