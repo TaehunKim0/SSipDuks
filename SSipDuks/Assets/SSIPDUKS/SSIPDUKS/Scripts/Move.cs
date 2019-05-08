@@ -18,6 +18,11 @@ public class Move : MonoBehaviour
         UseAngle = true;
     }
 
+    public void IsUseAngle(bool use)
+    {
+        UseAngle = use;
+    }
+
     public void SetDirection(Vector2 dir)
     {
         Direction = dir;
@@ -51,7 +56,6 @@ public class Move : MonoBehaviour
         {
             MoveMent = new Vector2(Direction.x * Speed.x, Direction.y * Speed.y);
         }
-
         
         myRigid.velocity = MoveMent;
         

@@ -26,6 +26,8 @@ public class Shot : MonoBehaviour
         if(value)
         {
             GameObject player = GameObject.Find("Player");
+            Move temp = gameObject.GetComponent<Move>();
+            temp.IsUseAngle(false);
 
             if(player != null)
             {

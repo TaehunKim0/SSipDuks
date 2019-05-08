@@ -22,6 +22,7 @@ public class GameMenu : MonoBehaviour
     public void GotoTitle()
     {
         SceneManager.LoadScene("SMenu");
+        ScoreSystem.score = 0;
     }
 
     public void EndGame()
